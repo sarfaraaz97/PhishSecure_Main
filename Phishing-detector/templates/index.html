@@ -80,16 +80,25 @@
       </div>
       <div class="text-center"><button type="submit">Scan URL</button></div>
       <p>
+       
         {% if name %}
-        <b><p>{{name[0]}}</p></b>
-        <h2 style="color:blue;">Website is {{name[1]}} to use</h2><br>
-        {% if name[3] %}
-        <button class="button1" onclick="window.open('{{name[0]}}')" target="_blank" >{{name[2]}}</button><br>
+        {% if name == "Safe" %}
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Safe URL!</h4>
+                <p>The URL "{{ url }}" is classified as: {{ name }}</p>
+                <hr>
+                <p class="mb-0">You can safely visit this website.</p>
+            </div>
         {% else %}
-        <button class="button2" onclick="window.open('{{name[0]}}')" target="_blank" >{{name[2]}}</button><br>
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Phishing Alert!</h4>
+                <p>The URL "{{ url }}" is classified as: {{ name }}</p>
+                <hr>
+                <p class="mb-0">Do not visit this website. It may be harmful.</p>
+            </div>
         {% endif %}
-        {% endif %}
-      </p>
+    {% endif %}
+    </p>
       </form> 
       <video class="img-fluid hero-video" autoplay loop muted data-aos="zoom-in" data-aos-delay="150" width="600" height="400">
       <source src="static/assets/video/intro-hero.webm" type="video/webm">

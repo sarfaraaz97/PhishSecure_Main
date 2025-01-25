@@ -4,19 +4,15 @@ import csv
 def convertion(url,prediction):
     name = []
     
-    # found_url = find_url_in_csv('Datafiles/phishurls.csv', url)
-    '''if "https://" in url:
-        urlz = url.replace("https://","")
-    if "http://" in url:
-        urlz = url.replace("http://","")
-    url_found = find_url_in_csv('Datafiles/legitimateurls.csv', urlz)'''
+    found_url = find_url_in_csv('Datafiles/phishurls.csv', url)
+    if found_url:
+        return [found_url, "Phishing", "Do not continue"]
+
     
     if(shortlink(url)==-1):
         return [url,"Not Safe","Still want to Continue"]
     elif(prediction==1):
         return [url,"Safe","Continue","1"]
-    else:
-        return [url,"Not Safe","Still want to Continue"]
 def shortlink(url):
         match = re.search('bit\.ly|goo\.gl|shorte\.st|go2l\.ink|x\.co|ow\.ly|t\.co|tinyurl|tr\.im|is\.gd|cli\.gs|'
                           'yfrog\.com|migre\.me|ff\.im|tiny\.cc|url4\.eu|twit\.ac|su\.pr|twurl\.nl|snipurl\.com|'
