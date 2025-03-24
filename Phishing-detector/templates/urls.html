@@ -3,98 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recent URLs</title>
-  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="static/style.css" rel="stylesheet">
+  <title>PhishSecure - Recent URLs</title>
+  <link rel="stylesheet" href="static\style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>PhishSecure</h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{{ url_for('home') }}">Home</a></li>
+          <li><a href="{{ url_for('usecases') }}">Use Cases</a></li>
+          <li class="active"><a href="{{ url_for('urls') }}">Recent URLs</a></li>
+          <li><a href="{{ url_for('social') }}">Identify Phishing</a></li>
+          <li class="dropdown">
+            <a href="#">Help <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown">
+                <a href="#">Report Phishing <i class="fas fa-chevron-right"></i></a>
+                <ul class="submenu">
+                  <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/" target="_blank">Google Safe Browsing</a></li>
+                  <li><a href="https://support.google.com/websearch/answer/106318" target="_blank">Google Support</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#">Take Phishing Quiz <i class="fas fa-chevron-right"></i></a>
+                <ul class="submenu">
+                  <li><a href="https://www.phishingbox.com/phishing-iq-test" target="_blank">Phishingbox</a></li>
+                  <li><a href="https://www.intradyn.com/phishing-quiz/" target="_blank">Intradyn</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="download-btn">
+        <a href="static/assets/Phishing Website Identification.pdf" class="btn" download="nofallmagaguide">Download Guide <i class="fas fa-download"></i></a>
+      </div>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
 
-<header id="header" class="fixed-top">
-  <div class="container d-flex align-items-center">
-    <h1 class="logo mr-auto"><a href="{{ url_for('home') }}">PhishSecure</a></h1>
-    <nav class="nav-menu d-none d-lg-block">
-      <ul>
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('usecases') }}">Usecases</a></li>
-        <li class="active"><a href="{{ url_for('urls') }}">Recent URLs</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+  <!-- Recent URLs Section -->
+  <section id="recent-urls" class="recent-urls">
+    <div class="container">
+      <div class="section-header">
+        <h2>Recently Scanned URLs</h2>
+        <p>View the latest URLs checked by our system</p>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" id="url-search" placeholder="Search URLs..." onkeyup="filterTable()">
+        <i class="fas fa-search"></i>
+      </div>
+      
+      <div class="table-container">
+        <table class="urls-table" id="urls-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>URL</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in url_data %}
+            <tr>
+              <td>{{ data.id }}</td>
+              <td>{{ data.url }}</td>
+              <td>
+                {% if data.prediction == 1 %}
+                  <span class="status safe">Safe</span>
+                {% else %}
+                  <span class="status phishing">Phishing</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination">
+        <a href="?page={{ current_page - 1 }}" class="page-link {% if current_page == 1 %}disabled{% endif %}">&laquo; Previous</a>
+        
+        {% for page in range(1, total_pages + 1) %}
+        <a href="?page={{ page }}" class="page-link {% if page == current_page %}active{% endif %}">{{ page }}</a>
+        {% endfor %}
+        
+        <a href="?page={{ current_page + 1 }}" class="page-link {% if current_page == total_pages %}disabled{% endif %}">Next &raquo;</a>
+      </div>
+    </div>
+  </section>
 
-<main id="main" class="container mt-5" style="padding-top: 100px;">
-  <h1 class="mb-4">Recent URLs</h1>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="google-quiz">
+          <img src="static/assets/img/google.png" alt="Google Logo">
+          <a href="https://phishingquiz.withgoogle.com/" target="_blank" class="btn">Take a Phishing Test by GOOGLE</a>
+        </div>
+        <div class="copyright">
+          <p>Final Year Project &copy; 2024. All Rights Reserved</p>
+          <a href="https://github.com/asrith-reddy/Phishing-detector" target="_blank" class="github-btn">
+            Source Code <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-  <!-- Search Bar -->
-  <div class="mb-4">
-    <input type="text" id="search-bar" class="form-control" placeholder="Search URLs..." onkeyup="filterTable()">
-  </div>
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
 
-  <!-- URLs Table -->
-  <table class="table table-bordered table-hover" id="urls-table">
-    <thead class="thead-dark">
-      <tr>
-        <th>ID</th>
-        <th>URL</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for data in url_data %}
-      <tr>
-        <td>{{ data.id }}</td>
-        <td>{{ data.url }}</td>
-        <td>
-          {% if data.prediction == 1 %}
-            <span class="badge badge-success">Safe</span>
-          {% else %}
-            <span class="badge badge-danger">Phishing</span>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileToggle = document.querySelector('.mobile-toggle');
+      const nav = document.querySelector('nav');
+      
+      mobileToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+      });
+      
+      // Back to top button
+      const backToTopButton = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    
+    // Table search functionality
+    function filterTable() {
+      const input = document.getElementById('url-search');
+      const filter = input.value.toLowerCase();
+      const table = document.getElementById('urls-table');
+      const rows = table.getElementsByTagName('tr');
 
-  <!-- Pagination -->
-  <nav>
-    <ul class="pagination justify-content-center">
-      <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
-        <a class="page-link" href="?page={{ current_page - 1 }}" tabindex="-1">Previous</a>
-      </li>
-      {% for page in range(1, total_pages + 1) %}
-      <li class="page-item {% if page == current_page %}active{% endif %}">
-        <a class="page-link" href="?page={{ page }}">{{ page }}</a>
-      </li>
-      {% endfor %}
-      <li class="page-item {% if current_page == total_pages %}disabled{% endif %}">
-        <a class="page-link" href="?page={{ current_page + 1 }}">Next</a>
-      </li>
-    </ul>
-  </nav>
-</main>
-
-<script>
-  function filterTable() {
-    const input = document.getElementById('search-bar');
-    const filter = input.value.toLowerCase();
-    const table = document.getElementById('urls-table');
-    const rows = table.getElementsByTagName('tr');
-
-    for (let i = 1; i < rows.length; i++) {
-      const urlCell = rows[i].getElementsByTagName('td')[1];
-      if (urlCell) {
-        const urlText = urlCell.textContent || urlCell.innerText;
-        rows[i].style.display = urlText.toLowerCase().includes(filter) ? '' : 'none';
+      for (let i = 1; i < rows.length; i++) {
+        const urlCell = rows[i].getElementsByTagName('td')[1];
+        if (urlCell) {
+          const urlText = urlCell.textContent || urlCell.innerText;
+          rows[i].style.display = urlText.toLowerCase().includes(filter) ? '' : 'none';
+        }
       }
     }
-  }
-</script>
-
-<script src="static/assets/vendor/jquery/jquery.min.js"></script>
-<script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="static/assets/vendor/aos/aos.js"></script>
+  </script>
 </body>
 </html>

@@ -1,281 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>PhishSecure</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  
-
-  <!-- Vendor CSS Files -->
-  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <!-- Template Main CSS File -->
-  <link href="static/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishSecure - Detect, Protect, and Stay Safe Online</title>
+  <link rel="stylesheet" href="static\style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
-      
-      <h1 class="logo mr-auto" style="color:rgb(70, 70, 99)"><a href="{{ url_for('home') }}"></a>PhishSecure</h1>
-
-
-      <nav class="nav-menu d-none d-lg-block">
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>PhishSecure</h1>
+      </div>
+      <nav>
         <ul>
-          <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
-          <li><a onclick="scrolldiv()">About</a></li>
-          <li><a href="{{ url_for('usecases') }}" target="_blank" rel="no-openner no-referrer">Usecases</a></li>
-          <li class="{% if request.endpoint == 'urls' %}active{% endif %}"><a href="{{ url_for('urls') }}" target="_blank" rel="noopener noreferrer">Recent URLs</a></li>
-          <li class="drop-down"><a href="{{ url_for('home') }}">Help</a>
-            <ul>
-              <li class="drop-down"><a href="#">Report Phishing Cases</a>
-                <ul>
-                  <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/?hl=en" target="_blank">Google Safe Browsing</a></li>
+          <li class="active"><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="{{ url_for('usecases') }}">Use Cases</a></li>
+          <li><a href="{{ url_for('urls') }}">Recent URLs</a></li>
+          <li><a href="{{ url_for('social') }}">Identify Phishing</a></li>
+          <li class="dropdown">
+            <a href="#">Help <i class="fas fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown">
+                <a href="#">Report Phishing <i class="fas fa-chevron-right"></i></a>
+                <ul class="submenu">
+                  <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/" target="_blank">Google Safe Browsing</a></li>
                   <li><a href="https://support.google.com/websearch/answer/106318" target="_blank">Google Support</a></li>
                 </ul>
-              </li>              
-              <li class="drop-down"><a href="#">Take Phishing Quiz</a>
-                <ul>
+              </li>
+              <li class="dropdown">
+                <a href="#">Take Phishing Quiz <i class="fas fa-chevron-right"></i></a>
+                <ul class="submenu">
                   <li><a href="https://www.phishingbox.com/phishing-iq-test" target="_blank">Phishingbox</a></li>
                   <li><a href="https://www.intradyn.com/phishing-quiz/" target="_blank">Intradyn</a></li>
                 </ul>
               </li>
-              <!-- <li><a href="#">For Future Reference</a></li> -->
             </ul>
           </li>
-          <!-- <li><a href="#">Future Reference</a></li> -->
-
         </ul>
-      </nav><!-- .nav-menu -->
-
-      <a href="static\assets\Phishing Website Identification.pdf" class="get-started-btn scrollto" download="nofallmagaguide">Download Guide <i class='bx bxs-download'></i></a>
-
+      </nav>
+      <div class="download-btn">
+        <a href="#" class="btn">Download Guide <i class="fas fa-download"></i></a>
+      </div>
+      <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
     </div>
-  </header><!-- End Header -->
+  </header>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container d-flex flex-column align-items-center justify-content-center" data-aos="fade-up" style="margin-top: -50px;">
-      <h1>PhishSecure</h1>
-      <p>Detect, Protect, and Stay Safe Online</p>
-        <form action="/result" method="POST" role="form" class="form">
-      <div class="row no-gutters">
-        <div class="col-md-6 form-group pr-md-1">
-          <input type="url" name="name" class="form-control" id="name" placeholder="Enter a URL link in format http or https" required>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>PhishSecure</h1>
+        <p>Detect, Protect, and Stay Safe Online</p>
+        <form id="scan-form" class="scan-form">
+          <div class="form-group">
+            <input type="url" id="url-input" placeholder="Enter a URL link in format http or https" required>
+            <button type="submit" class="btn btn-primary">Scan URL</button>
+          </div>
+          <div id="result" class="result-box hidden">
+            <!-- Results will be displayed here -->
+          </div>
+        </form>
+        <div class="hero-image">
+          <img src="static\assets\img\Sarfaraaz.gif" alt="Security Shield Animation">
         </div>
       </div>
-      <div class="text-center"><button type="submit">Scan URL</button></div>
-      <p>
-       
-        {% if name %}
-        {% if name == "Safe" %}
-            <div class="alert alert-success" role="alert">
-                <h4 class="alert-heading">Safe URL!</h4>
-                <p>The URL "{{ url }}" is classified as: {{ name }}</p>
-                <hr>
-                <p class="mb-0">You can safely visit this website.</p>
-            </div>
-        {% else %}
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">Phishing Alert!</h4>
-                <p>The URL "{{ url }}" is classified as: {{ name }}</p>
-                <hr>
-                <p class="mb-0">Do not visit this website. It may be harmful.</p>
-            </div>
-        {% endif %}
-    {% endif %}
-    </p>
-      </form> 
-      <video class="img-fluid hero-video" autoplay loop muted data-aos="zoom-in" data-aos-delay="150" width="600" height="400">
-      <source src="static/assets/video/intro-hero.webm" type="video/webm">
-      Your browser does not support the video tag.
-      </video><br><br><br>
     </div>
-    <script>
-        
-            /*let x = '{{xx}}';
-            let num = x*100;
-            if (0<=x && x<0.50){
-                num = 100-num;
-            }
-            let txtx = num.toString();
-            if(x<=1 && x>=0.50){
-                var label = "Website is "+txtx +"% safe to use...";
-                document.getElementById("prediction").innerHTML = label;
-                document.getElementById("button1").style.display="block";
-            }
-            else if (0<=x && x<0.50){
-                var label = "Website is "+txtx +"% unsafe to use..."
-                document.getElementById("prediction").innerHTML = label ;
-                document.getElementById("button2").style.display="block";
-            }*/
-        
-    </script>
-  </section><!-- End Hero -->
+  </section>
 
-     <!-- ======= Frequently Asked Questions Section ======= -->
-     <section id="faq" class="faq">
-        <div class="container" data-aos="fade-up">
-  
-          <div class="faq-list">
+  <!-- What is Phishing Section -->
+  <section id="phishing-info" class="faq">
+    <div class="container">
+      <h2>Understanding Phishing Attacks</h2>
+      <div class="accordion">
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>What is phishing?</h3>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <p>Phishing is a cybercrime in which a target or targets are contacted by email, telephone, or text message by someone posing as a legitimate institution to lure individuals into providing sensitive data such as personally identifiable information, banking and credit card details, and passwords.</p>
+            <p>In simpler terms, phishing is a cyber attack where the attacker tricks the target into disclosing personal information, revealing login credentials, or transferring money.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>Why should I be concerned about phishing?</h3>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <p>The purpose of phishing is to collect sensitive information with the intention of using that information to gain access to otherwise protected data, networks, etc. A phisher's success is contingent upon establishing trust with its victims.</p>
+            <p><strong>Successful Phishing attacks can:</strong></p>
             <ul>
-              <li data-aos="fade-up" data-aos="fade-up" data-aos-delay="100">
-                <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" class="collapse" href="#faq-list-1">What is phishing <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                <div id="faq-list-1" class="collapse show" data-parent=".faq-list">
-                  <p>
-                    Phishing is a cybercrime in which a target or targets are contacted by email, telephone, or text message by someone posing as a legitimate institution to lure individuals into providing sensitive data such as personally identifiable information, banking and credit card details, and passwords.
-                    OR 
-                    Phishing is a cyber attack where the attacker tricks the target into disclosing personal information, revealing login credentials, or transferring money.
-                    </p>
-                </div>
-              </li>
-  
-              <li data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-2" class="collapsed">Why should I bother Knowing what Phishing is all about <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                <div id="faq-list-2" class="collapse" data-parent=".faq-list">
-                  <p>
-                      The purpose of phishing is to collect sensitive information with the intention of using that information to gain access to otherwise protected data, networks, etc. A phisher's success is contingent upon establishing trust with its victims. <br><br>
-                      Successful Phishing attacks can: <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Cause financial loss for victims <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Put their personal information at risk <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Put data and systems at risk
-                  </p>
-                </div>
-              </li>    
-
-              <li data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-3" class="collapsed">Two Major Types of Phishing Attack<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                <div id="faq-list-3" class="collapse" data-parent=".faq-list">
-                  <p>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b> Deceptive Phishing:</b> Deceptive phishing is by far the most common type of phishing scam. In this ploy, fraudsters impersonate a legitimate company to steal people’s personal data or login credentials. Those emails frequently use threats and a sense of urgency to scare users into doing what the attackers want. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b>Spear Phishing:</b> Spear Phishing targets specific individuals instead of a wide group of people. Attackers often research their victims on social media and other sites. That way, they can customize their communications and appear more authentic. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b>Other phishing Technique</b> <i class='bx bxs-hand-down'></i><br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Angler Phishing:</b> This cyberattack comes by way of social media. It may involve fake URLs, instant messages or profiles used to obtain sensitive data. Attackers also peruse social profiles to glean any personal information they can use for social engineering. <br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Clone Phishing:</b> Clone phishing involves exact duplication of an email to make it appear as legitimate as possible.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Domain Spoofing:</b> In this category of phishing, the attacker forges a company domain, which makes the email appear to be from that company.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Email Phishing:</b> Phishing emails are often the first to come to mind when people hear the term phishing. Attackers send an illegitimate email asking for personal information or login credentials.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Search Engine Phishing:</b> Rather than sending correspondence to you to gain information, search engine fishing involves creating a website that mimics a legitimate site. Site visitors are asked to download products that are infected with malware or provide personal information in forms that go to the attacker.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Smishing:</b> Combine SMS with phishing and you have the technique called smishing. With smishing, attackers send fraudulent text messages in an attempt to gather information like credit card numbers or passwords.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Whaling:</b> A whaling attack targets the big fish, or executive-level employees. An attack of this sort often involves more sophisticated social engineering tactics and intelligence gathering to better sell the fake.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i> <b>Vishing:</b> Combine VoIP with phishing and you get vishing. This type of phishing involves calls from a fraudulent person attempting to obtain sensitive information.<br><br>
-                      <i class='bx bx-right-arrow-alt icon-arrrow'></i>  <b>Malvertising:</b> Malvertising is malicious advertising that contains active scripts designed to download malware or force unwanted content onto your computer. Exploits in Adobe PDF and Flash are the most common methods used in malvertisements<br><br>
-                  </p>
-                </div>
-              </li>              
-              
-              <li data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-4" class="collapsed">How to Prevent and Protect Against Phishing As An End-user<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                <div id="faq-list-4" class="collapse" data-parent=".faq-list">
-                  <p>
-                      To help prevent phishing attacks, you should observe general best practices, similar to those you might undertake to avoid viruses and other malware. First, make sure your systems are updated to help protect against known vulnerabilities. Protect devices and systems with reputable security software and firewall protection. You can also add software that watches for PII being sent over email or other insecure methods.Since the weak link in phishing attacks is the end user, you should provide proper end-user security awareness training and educate your team on how to recognize a phishing scam. The key to protecting against phishing lies in the ability to recognize the cyberattack as illegitimate. Following are some key concepts to include in end-user training: <br><br>
-
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Users are to choose strong passwords and be wary of posting your personal details on social media. Information like birthdates, addresses and phone numbers are valuable to an attacker. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> If there are any suspicions about an email or social post, contact the IT team to have them examine the situation. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Only open attachments from a trusted source. When in doubt, check with the alleged sender directly. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Note any language differences in messaging or emails that vary from legitimate organizational communications. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Never give away personal information in an email or unsolicited call. For instance, financial institutions will never call and ask for login credentials or account info because they already have it. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Inspect emails for typos and inaccurate grammar. This is usually a dead giveaway of less-sophisticated phishing scams. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Don’t supply personal information via email or text. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Beware of urgent or time-sensitive warnings. Phishing attacks often prompt action by pretending to be urgent. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> Verify emails and other correspondence by contacting the organization directly. If you think something is fishy (okay, bad pun), a phone call can quickly identify a legitimate call from a fake one. <br><br>
-
-                  </p>
-                </div>
-              </li>              
-              
-              <li data-aos="fade-up" data-aos-delay="200">
-                <i class="bx bx-help-circle icon-help"></i> <a data-toggle="collapse" href="#faq-list-5" class="collapsed">How to Prevent and Protect Against Phishing As A Company<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                <div id="faq-list-5" class="collapse" data-parent=".faq-list">
-                  <p>
-                      Since we can’t control the criminals, let’s take a look at how you can prevent phishing attacks. <br>
-
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b>Train Your Employees</b> - Unsuspecting employees who are not trained to identify phishing emails are easily tricked. If they click on a link, open an attachment, or respond to the email, they could be giving the attacker exactly what they need to break into your system. Training is by far the most crucial action you can take to avoid phishing attacks. By investing in your employees’ security education, you empower them to take ownership of security best practices. With training, your employees can identify a phishing email and report suspicious activity before any information is compromised. <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b>Update Your Antivirus Software</b>- Keeping your antivirus software updated adds a layer of security. The software will scan files coming into your computer, preventing possible damage. Ensure that your anti-spyware and firewall settings are active.  <br><br>
-                      <i class='bx bxs-chevron-right-circle icon-circle'></i> <b>Stay Up-to-Date</b> - By staying in-the-know, you remain vigilant to phishing attempts. Research common phishing scams so that you’re aware of what security professionals see as the main threats. The more aware you are of what’s out there, the more likely you are to identify a possible attack.  <br><br>
-
-                  </p>
-                </div>
-              </li>              
-
+              <li><i class="fas fa-circle-check"></i> Cause financial loss for victims</li>
+              <li><i class="fas fa-circle-check"></i> Put their personal information at risk</li>
+              <li><i class="fas fa-circle-check"></i> Put data and systems at risk</li>
             </ul>
           </div>
-  
         </div>
-      </section><!-- End Frequently Asked Questions Section -->
 
-  <main id="main">    
-          
-          <!-- ======= about Section ======= -->
-        <section id="about" class="about">
-            <div class="container" data-aos="fade-up">
-      
-              <div class="section-title">
-                <h2>About PhishSecure</h2>
-                <p>Phishing is an internet scam in which an attacker sends out fake messages that look to come from a trusted source. A URL or file will be included in the mail, which when clicked will steal personal information or infect a computer with a virus. Phish Detector is a project
-                    which aims to help reduce phishing attack by helping internet users authenticate URL link by testing if it is phishing or legitimate. The progress of validating a Website URL for phishing or legitimate has gone through several Machine learning models. 
-                    </p>                
-                    
-                    <h3>About Us</h3>
-                    <p>This Project is done by Final Year Students of Computer Science and Engineering at Srinivasa Ramanujan Institute of Technology<br><br><h5 style="color:white;"><b>S SARFARAAZ AHMED<br>O VINITHA<br>D SHABNAM<br>P SAI REDDY<br><br><h6>Guided By</h6><h5>P CHITRALINGAPPA</h5></b></p></p>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>Types of Phishing Attacks</h3>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="phishing-types">
+              <div class="type-card">
+                <h4>Deceptive Phishing</h4>
+                <p>Fraudsters impersonate a legitimate company to steal personal data or login credentials using threats and urgency to scare users.</p>
               </div>
-      
+              <div class="type-card">
+                <h4>Spear Phishing</h4>
+                <p>Targets specific individuals instead of a wide group, often researching victims on social media to customize communications.</p>
+              </div>
+              <div class="type-card">
+                <h4>Smishing</h4>
+                <p>SMS phishing where attackers send fraudulent text messages to gather information like credit card numbers or passwords.</p>
+              </div>
+              <div class="type-card">
+                <h4>Vishing</h4>
+                <p>Voice phishing combines VoIP with phishing, involving calls from fraudulent persons attempting to obtain sensitive information.</p>
+              </div>
             </div>
-          </section><!-- End about Section -->
-  
+          </div>
+        </div>
 
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container d-md-flex py-4">
-
-      <div class="text-center text-md-center">
-        <div class="copyright">
-          <img src="static/assets/img/google.png" alt="">
-          <a href="https://phishingquiz.withgoogle.com/" target="_blank" class="get-started-btn scrollto">Take a Phishing Test by GOOGLE</a> <br>
-          <hr/> 
-		  <p style="padding-top: 8px; font-weight: 600;"><a style="text-decorations:none; color:inherit;" href="https://github.com/asrith-reddy" >Final Year Project &copy; 2024.All Rights Reserved</a></p><a href="https://github.com/asrith-reddy/Phishing-detector" ><button style="font-size:15px" class="button3">Source Code <i class="fa fa-github"></i></button></a>
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>How to Protect Yourself</h3>
+            <i class="fas fa-chevron-down toggle-icon"></i>
+          </div>
+          <div class="accordion-content">
+            <div class="protection-tips">
+              <div class="tip">
+                <i class="fas fa-shield-alt"></i>
+                <p>Use strong passwords and be wary of posting personal details on social media</p>
+              </div>
+              <div class="tip">
+                <i class="fas fa-envelope"></i>
+                <p>Never give away personal information in an email or unsolicited call</p>
+              </div>
+              <div class="tip">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Beware of urgent or time-sensitive warnings - phishing attacks often create false urgency</p>
+              </div>
+              <div class="tip">
+                <i class="fas fa-phone"></i>
+                <p>Verify emails by contacting the organization directly through official channels</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-  </footer><!-- End Footer -->
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About PhishSecure</h2>
+      </div>
+      <div class="about-content">
+        <p>Phishing is an internet scam in which an attacker sends out fake messages that look to come from a trusted source. A URL or file will be included in the mail, which when clicked will steal personal information or infect a computer with a virus.</p>
+        <p>PhishSecure is a project which aims to help reduce phishing attacks by helping internet users authenticate URL links by testing if they are phishing or legitimate. The process of validating a Website URL for phishing or legitimate has gone through several Machine learning models.</p>
+        
+        <div class="team-info">
+          <h3>About Us</h3>
+          <p>This Project is done by Final Year Students of Computer Science and Engineering at Srinivasa Ramanujan Institute of Technology</p>
+          <div class="team-members">
+            <div class="member">S SARFARAAZ AHMED</div>
+            <div class="member">O VINITHA</div>
+            <div class="member">D SHABNAM</div>
+            <div class="member">P SAI REDDY</div>
+          </div>
+          <div class="guided-by">
+            <h4>Guided By</h4>
+            <div class="guide">P CHITRALINGAPPA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-  <!-- <div id="preloader"></div> -->
+  <!-- Use Cases Section -->
+  <section id="usecases" class="usecases">
+    <div class="container">
+      <div class="section-header">
+        <h2>Real Phishing Attack Cases</h2>
+        <p>Learn from these real-world examples of major phishing attacks</p>
+      </div>
+      
+      <div class="cases-container">
+        <div class="case-card">
+          <div class="case-number">01</div>
+          <h3>John Podesta's Email</h3>
+          <p>One of the most notable phishing attacks was on John Podesta, chairman of Hillary Clinton's presidential campaign. Russian hackers sent an email pretending to be Google, claiming he needed to change his password after an attempted hack. When someone with access to his account used the compromised link, hackers gained access and released thousands of emails via WikiLeaks.</p>
+        </div>
+        
+        <div class="case-card">
+          <div class="case-number">02</div>
+          <h3>BenefitMall Data Breach</h3>
+          <p>Between June and October 2018, BenefitMall's website was accessed via employee email credentials exposed during a phishing attack. The breach potentially exposed names, email addresses, birth dates, bank account information, and insurance details of thousands of customers from over 200,000 small and medium-sized businesses.</p>
+        </div>
+        
+        <div class="case-card">
+          <div class="case-number">03</div>
+          <h3>Sony Pictures Attack</h3>
+          <p>In retaliation for the movie "The Interview," North Korean hackers launched a devastating attack on Sony Pictures in November 2014. Using phishing emails containing malware, the attackers gained network access, threatened employees, stole confidential data, and disabled thousands of computers, costing the company over $100 million.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Vendor JS Files -->
-  <script src="static/assets/vendor/jquery/jquery.min.js"></script>
-  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
-  <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="static/assets/vendor/venobox/venobox.min.js"></script>
-  <script src="static/assets/vendor/aos/aos.js"></script>
+  
+
+  <!-- Examples Section -->
+  <section id="examples" class="examples">
+    <div class="container">
+      <div class="section-header">
+        <h2>Phishing Examples</h2>
+        <p>Learn to identify common phishing attempts</p>
+      </div>
+      
+      <div class="examples-slider">
+        <div class="example-slide">
+          <div class="example-image">
+            <img src="static\assets\img\pic1.png" alt="Fake Paypal Security Notice">
+          </div>
+          <div class="example-description">
+            <h3>Fake Paypal Security Notice</h3>
+            <p>This fake Paypal security notice warns users of "unusual log in activity" on their accounts. Notice the suspicious sender email and urgent language designed to create panic.</p>
+          </div>
+        </div>
+        
+        <div class="example-slide">
+          <div class="example-image">
+            <img src="static\assets\img\pic2.png" alt="Fake Gmail Login Page">
+          </div>
+          <div class="example-description">
+            <h3>Fake Gmail Login Page</h3>
+            <p>This page looks exactly like the original Gmail login, but the URL is different which makes it phishing. Always check the URL in your browser's address bar before entering credentials.</p>
+          </div>
+        </div>
+        
+        <div class="example-slide">
+          <div class="example-image">
+            <img src="static\assets\img\pic3.png" alt="LinkedIn Phishing Attack">
+          </div>
+          <div class="example-description">
+            <h3>LinkedIn Phishing Attack</h3>
+            <p>This LinkedIn InMail appears to have originated from a fake Wells Fargo account. The supplied link leads to a credentials phish hosted on a malicious domain.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="slider-controls">
+        <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+        <div class="slider-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="google-quiz">
+          <img src="static\assets\img\google.png" alt="Google Logo">
+          <a href="https://phishingquiz.withgoogle.com/" target="_blank" class="btn">Take a Phishing Test by GOOGLE</a>
+        </div>
+        <div class="copyright">
+          <p>Final Year Project &copy; 2024. All Rights Reserved</p>
+          <a href="https://github.com/sarfaraaz97/PhishSecure_Main" target="_blank" class="github-btn">
+            Source Code <i class="fab fa-github"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
   <script>
-    function scrolldiv() {
-        var elem = document.getElementById("about");
-        elem.scrollIntoView();
-    }
+    // Simple JavaScript for interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+      // Toggle mobile menu
+      const mobileToggle = document.querySelector('.mobile-toggle');
+      const nav = document.querySelector('nav');
+      
+      mobileToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+      });
+      
+      // Accordion functionality
+      const accordionItems = document.querySelectorAll('.accordion-item');
+      
+      accordionItems.forEach(item => {
+        const header = item.querySelector('.accordion-header');
+        
+        header.addEventListener('click', function() {
+          item.classList.toggle('active');
+        });
+      });
+      
+      // Form submission
+      const scanForm = document.getElementById('scan-form');
+      const resultBox = document.getElementById('result');
+      
+      scanForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const urlInput = document.getElementById('url-input').value;
+        
+        // Simulate scanning (in a real app, this would be an API call)
+        const isSafe = Math.random() > 0.5;
+        
+        resultBox.innerHTML = isSafe ? 
+          '<div class="alert success"><h4>Safe URL!</h4><p>The URL "' + urlInput + '" is classified as: Safe</p><p>You can safely visit this website.</p></div>' :
+          '<div class="alert danger"><h4>Phishing Alert!</h4><p>The URL "' + urlInput + '" is classified as: Phishing</p><p>Do not visit this website. It may be harmful.</p></div>';
+        
+        resultBox.classList.remove('hidden');
+      });
+      
+      // Back to top button
+      const backToTopButton = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add('show');
+        } else {
+          backToTopButton.classList.remove('show');
+        }
+      });
+      
+      backToTopButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      
+      // Simple slider functionality
+      const slides = document.querySelectorAll('.example-slide');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
+      let currentSlide = 0;
+      
+      function showSlide(n) {
+        slides.forEach(slide => slide.style.display = 'none');
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        slides[n].style.display = 'flex';
+        dots[n].classList.add('active');
+      }
+      
+      prevBtn.addEventListener('click', function() {
+        currentSlide = (currentSlide > 0) ? currentSlide - 1 : slides.length - 1;
+        showSlide(currentSlide);
+      });
+      
+      nextBtn.addEventListener('click', function() {
+        currentSlide = (currentSlide < slides.length - 1) ? currentSlide + 1 : 0;
+        showSlide(currentSlide);
+      });
+      
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+          currentSlide = index;
+          showSlide(currentSlide);
+        });
+      });
+      
+      // Initialize with first slide
+      showSlide(0);
+    });
   </script>
-
-  <!-- Template Main JS File -->
-  <script src="static/assets/js/main.js"></script>
-
 </body>
-
 </html>

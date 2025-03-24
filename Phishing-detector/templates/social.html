@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Identify Phishing Websites</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="static\style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --warning: #fca311;
+            --success: #2a9d8f;
+            --danger: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 60px 30px;
+            margin-bottom: 50px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .hero-section::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        h1 {
+            font-weight: 700;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            padding: 20px;
+            border-bottom: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-header i {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .rule-box {
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            margin: 20px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .rule-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        nav ul li a {
+        text-decoration: none; /* Removes underline */
+        color: inherit; /* Ensures the text color matches the design */
+    }
+
+    nav ul li a:hover {
+        text-decoration: underline; /* Optional: Add underline on hover */
+    }
+        
+        .phishing {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--danger);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .suspicious {
+            background-color: rgba(252, 163, 17, 0.1);
+            color: var(--warning);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .legitimate {
+            background-color: rgba(42, 157, 143, 0.1);
+            color: var(--success);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        .example {
+            font-style: italic;
+            color: var(--gray);
+            background-color: rgba(108, 117, 125, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            display: block;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px 0;
+            border-radius: 15px;
+            margin-top: 50px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        /* Animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        /* Pulse animation for the shield icon */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .shield-icon {
+            animation: pulse 2s infinite;
+            display: inline-block;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-section, footer {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+          <div class="logo">
+            <h1>PhishSecure</h1>
+          </div>
+          <nav>
+            <ul>
+              <li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+              <li><a href="{{ url_for('usecases') }}">Use Cases</a></li>
+              <li><a href="{{ url_for('urls') }}">Recent URLs</a></li>
+              <li class="dropdown">
+                <a href="#">Help <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown">
+                    <a href="#">Report Phishing <i class="fas fa-chevron-right"></i></a>
+                    <ul class="submenu">
+                      <li><a href="https://safebrowsing.google.com/safebrowsing/report_phish/" target="_blank">Google Safe Browsing</a></li>
+                      <li><a href="https://support.google.com/websearch/answer/106318" target="_blank">Google Support</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a href="#">Take Phishing Quiz <i class="fas fa-chevron-right"></i></a>
+                    <ul class="submenu">
+                      <li><a href="https://www.phishingbox.com/phishing-iq-test" target="_blank">Phishingbox</a></li>
+                      <li><a href="https://www.intradyn.com/phishing-quiz/" target="_blank">Intradyn</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <div class="download-btn">
+            <a href="#" class="btn">Download Guide <i class="fas fa-download"></i></a>
+          </div>
+          <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+          </div>
+        </div>
+      </header>
+    <div class="container py-4">
+        <div class="hero-section text-center">
+            <i class="fas fa-shield-alt shield-icon"></i>
+            <h1>How to Identify Phishing Websites</h1>
+            <p class="subtitle">Learn to protect yourself from online scams and fraudulent websites with these essential guidelines</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>1. IP Address in URL</span>
+                    </div>
+                    <div class="card-body">
+                        <p>If an IP address is used as an alternative of the domain name in the URL, such as "http://125.98.3.123/fake.html", users can be sure that someone is trying to steal their personal information.</p>
+                        <p>Sometimes, the IP address is even transformed into hexadecimal code as shown in the following link:</p>
+                        <span class="example">http://0x58.0xCC.0xCA.0x62/2/paypal.ca/index.html</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                If The Domain Part has an IP Address → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-link"></i>
+                        <span>2. Long URL to Hide the Suspicious Part</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Phishers can use long URL to hide the doubtful part in the address bar. For example:</p>
+                        <span class="example">http://federmacedoadv.com.br/3f/aze/ab51e2e319e51502f416dbe46b773a5e/?cmd=_home&amp;dispatch=11004d58f5b74f8dc1e7c2e8dd4105e811004d58f5b74f8dc1e7c2e8dd4105e8@phishing.website.html</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                URL length < 54 → <span class="legitimate">Legitimate</span>
+                                else if URL length ≥ 54 and ≤ 75 → <span class="suspicious">Suspicious</span>
+                                otherwise → <span class="phishing">Phishing</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-compress-alt"></i>
+                        <span>3. Using URL Shortening Services "TinyURL"</span>
+                    </div>
+                    <div class="card-body">
+                        <p>URL shortening is a method on the "World Wide Web" in which a URL may be made considerably smaller in length and still lead to the required webpage. This is accomplished by means of an "HTTP Redirect" on a domain name that is short, which links to the webpage that has a long URL.</p>
+                        <p>For example, the URL "http://portal.hud.ac.uk/" can be shortened to:</p>
+                        <span class="example">bit.ly/19DXSk4</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                TinyURL → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-at"></i>
+                        <span>4. URL's having "@" Symbol</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Using "@" symbol in the URL leads the browser to ignore everything preceding the "@" symbol and the real address often follows the "@" symbol.</p>
+                        <span class="example">http://legitimate-looking-domain.com@phishing-site.com</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Url Having @ Symbol → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-random"></i>
+                        <span>5. Redirecting using "//"</span>
+                    </div>
+                    <div class="card-body">
+                        <p>The existence of "//" within the URL path means that the user will be redirected to another website. An example of such URL's is:</p>
+                        <span class="example">http://www.legitimate.com//http://www.phishing.com</span>
+                        <p>We examine the location where the "//" appears. We find that if the URL starts with "HTTP", that means the "//" should appear in the sixth position. However, if the URL employs "HTTPS" then the "//" should appear in seventh position.</p>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                The Position of the Last Occurrence of "//" in the URL > 7 → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-minus"></i>
+                        <span>6. Adding Prefix or Suffix Separated by (-) to the Domain</span>
+                    </div>
+                    <div class="card-body">
+                        <p>The dash symbol is rarely used in legitimate URLs. Phishers tend to add prefixes or suffixes separated by (-) to the domain name so that users feel that they are dealing with a legitimate webpage. For example:</p>
+                        <span class="example">http://www.Confirme-paypal.com/</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Domain Name Part Includes (-) Symbol → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-sitemap"></i>
+                        <span>7. Sub Domain and Multi Sub Domains</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Let us assume we have the following link: <span class="example">http://www.hud.ac.uk/students/</span></p>
+                        <p>A domain name might include the country-code top-level domains (ccTLD), which in our example is "uk". The "ac" part is shorthand for "academic", the combined "ac.uk" is called a second-level domain (SLD) and "hud" is the actual name of the domain.</p>
+                        <p>If the number of dots is greater than one, then the URL is classified as "Suspicious" since it has one sub domain. However, if the dots are greater than two, it is classified as "Phishing" since it will have multiple sub domains.</p>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Dots In Domain Part = 1 → <span class="legitimate">Legitimate</span>
+                                Dots In Domain Part = 2 → <span class="suspicious">Suspicious</span>
+                                Otherwise → <span class="phishing">Phishing</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-window-restore"></i>
+                        <span>8. Using Pop-up Window</span>
+                    </div>
+                    <div class="card-body">
+                        <p>It is unusual to find a legitimate website asking users to submit their personal information through a pop-up window. On the other hand, this feature has been used in some legitimate websites and its main goal is to warn users about fraudulent activities or broadcast a welcome announcement, though no personal information was asked to be filled in through these pop-up windows.</p>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Popup Window Contains Text Fields → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-image"></i>
+                        <span>9. Favicon</span>
+                    </div>
+                    <div class="card-body">
+                        <p>A favicon is a graphic image (icon) associated with a specific webpage. Many existing user agents such as graphical browsers and newsreaders show favicon as a visual reminder of the website identity in the address bar. If the favicon is loaded from a domain other than that shown in the address bar, then the webpage is likely to be considered a Phishing attempt.</p>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Favicon Loaded From External Domain → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-lock"></i>
+                        <span>10. The Existence of "HTTPS" Token in the Domain Part of the URL</span>
+                    </div>
+                    <div class="card-body">
+                        <p>The phishers may add the "HTTPS" token to the domain part of a URL in order to trick users. For example:</p>
+                        <span class="example">http://https-www-paypal-it-webapps-mpp-home.soft-hair.com/</span>
+                        
+                        <div class="rule-box">
+                            <div class="rule-title">Rule:</div>
+                            IF {
+                                Using HTTP Token in Domain Part of The URL → <span class="phishing">Phishing</span>
+                                Otherwise → <span class="legitimate">Legitimate</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center">
+            <i class="fas fa-shield-alt mb-3" style="font-size: 2rem;"></i>
+            <h3>Stay Safe Online</h3>
+            <p class="mb-0">This guide is for educational purposes to help identify phishing websites and protect yourself online.</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

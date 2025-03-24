@@ -30,6 +30,12 @@ class URLData(db.Model):
     prediction = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
+
+@app.route("/social")
+def social():
+    return render_template("social.html")
+
 @app.route("/")
 def home():
     return render_template("index.html")
